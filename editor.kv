@@ -1,0 +1,51 @@
+#:kivy 2.0.0
+
+Root:
+    filechooser: filechooser
+    rv: rv
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            pos_hint: {'top': 1}
+            size_hint: 1, 0.8
+            orientation: 'horizontal'
+            BoxLayout:
+                size: root.size
+                pos: root.pos
+                orientation: "vertical"
+                Explorer:
+                    id: filechooser
+
+            BoxLayout:
+                size: root.size
+                pos: root.pos
+
+                DirList:
+                    size: root.size
+                    pos: root.pos
+                    id: rv
+
+        BoxLayout:
+            size_hint: 0.5, 0.1
+            Button:
+                text: 'button'
+                on_press: print('I am pressed!')
+
+            Button:
+                text: 'button2'
+                on_press: print('2 pressed')
+                disabled: True
+
+<DirList>:
+    viewclass: 'SelectableLabel'
+    SelectableRecycleBoxLayout:
+        default_size: None, 24
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+        multiselect: True
+        touch_multiselect: True
+
