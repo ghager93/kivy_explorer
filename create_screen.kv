@@ -1,0 +1,33 @@
+#:kivy 2.0.0
+
+CreateScreen:
+
+    BoxLayout:
+        id: box
+        orientation: 'vertical'
+
+        Label:
+            text: 'Create New Library'
+            pos_hint: {'left': 1}
+            size_hint: 0.6, 0.05
+
+        TextInput:
+            text: 'Library Name...'
+            pos_hint: {'left': 1}
+            size_hint: 0.6, 0.05
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            FileExplorer:
+                dirselect: True
+                pos_hint: {'top': 1}
+                size_hint: 0.5, 0.5
+
+            LibraryList:
+                id: librarylist
+                pos_hint: {'top': 1}
+                size_hint: 0.5, 0.5
+
+
+
