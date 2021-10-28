@@ -43,9 +43,7 @@ class MainApp(App):
         return kv
 
     def on_start(self):
-        self.root.ids.librarylist.update_data(['hello', 'goodbye'])
-        self.root.ids.librarylist.default_size = None, 24
-        print(self.root.ids.librarylist.children[0].default_size)
+        self.root.ids.librarylist.update_data([n for n in range(40)])
 
 
 if __name__ == '__main__':

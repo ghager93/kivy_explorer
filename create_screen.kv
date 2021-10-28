@@ -18,16 +18,28 @@ CreateScreen:
 
         BoxLayout:
             orientation: 'horizontal'
+            size_hint: 1, 0.5
 
             FileExplorer:
                 dirselect: True
                 pos_hint: {'top': 1}
-                size_hint: 0.5, 0.5
+                size_hint: 1, 1
 
-            LibraryList:
-                id: librarylist
-                pos_hint: {'top': 1}
-                size_hint: 0.5, 0.5
+            BoxLayout:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        pos: self.pos
+                        size:self.size
+                LibraryList:
+                    id: librarylist
 
+                    canvas.before:
+                        Color:
+                            rgba: 0, 1, 1, 0.5
+                        Rectangle:
+                            pos: self.pos
+                            size:self.size
 
 

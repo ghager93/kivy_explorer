@@ -22,14 +22,14 @@ Builder.load_string('''
 <SelectableList>:
     viewclass: 'SelectableLabel'
     
-    default_size: None, dp(56)
-    default_size_hint: 1, None
-    size_hint_y: None
+    item_default_size: None, dp(20)
+    item_default_size_hint: 0.75, None
+    item_size_hint_y: None
     
     SelectableRecycleBoxLayout:
-        default_size: root.default_size
-        default_size_hint: root.default_size_hint
-        size_hint_y: root.size_hint_y
+        default_size: root.item_default_size
+        default_size_hint: root.item_default_size_hint
+        size_hint_y: root.item_size_hint_y
         height: self.minimum_height
         orientation: 'vertical'
         multiselect: True
