@@ -1,10 +1,10 @@
 #:kivy 2.0.0
 
 CreateScreen:
-
     BoxLayout:
         id: box
         orientation: 'vertical'
+        spacing: dp(10)
 
         Label:
             text: 'Create New Library'
@@ -12,34 +12,84 @@ CreateScreen:
             size_hint: 0.6, 0.05
 
         TextInput:
+            id: name_input
+
             text: 'Library Name...'
             pos_hint: {'left': 1}
             size_hint: 0.6, 0.05
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint: 1, 0.5
-
-            FileExplorer:
-                dirselect: True
-                pos_hint: {'top': 1}
-                size_hint: 1, 1
+            size_hint: 1, 0.6
 
             BoxLayout:
-                canvas.before:
-                    Color:
-                        rgba: 1, 1, 1, 1
-                    Rectangle:
-                        pos: self.pos
-                        size:self.size
+                orientation: 'vertical'
+
+                FileExplorer:
+                    id: explorer
+
+                    dirselect: True
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.25
+
+                    Button:
+                        id: add_button
+
+                        text: 'Add'
+                        on_press: root.add_to_library()
+
+                    LabelledCheckBox:
+                        id: addrec_check
+
+                        text: 'Add recursively'
+
+            BoxLayout:
+                orientation: 'vertical'
+
                 LibraryList:
                     id: librarylist
 
-                    canvas.before:
-                        Color:
-                            rgba: 0, 1, 1, 0.5
-                        Rectangle:
-                            pos: self.pos
-                            size:self.size
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.25
+
+                    LabelledCheckBox:
+                        id: fullpath_check
+
+                        text: 'Show full path'
+
+                    Button:
+                        id: remove_button
+
+                        text: 'Remove'
+                        on_press: librarylist.remove_selected()
+
+                    Button:
+                        text: 'Clear'
+                        on_press: root.clear_library()
+
+        Button:
+            id: save_button
+
+            size_hint: 0.25, 0.1
+            text: 'Save as...'
+            on_press: root.ids.librarylist.print_selected()
+
+
+<LabelledCheckBox@StackLayout>:
+    spacing: dp(10)
+
+    text: ''
+
+    Label:
+        size_hint: 0.75, None
+
+        text: self.parent.text
+
+    CheckBox:
+        size_hint: 0.25, None
+
 
 

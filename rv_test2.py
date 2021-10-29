@@ -21,7 +21,7 @@ class MyList(SelectableList):
         if keycode[1] == 'c':
             self.nums.append(self.cnt)
             self.cnt += 1
-            self.update_data(self.nums)
+            self.replace_data(self.nums)
         return True
 
 

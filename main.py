@@ -59,7 +59,7 @@ class Explorer(FileChooserListView):
 
         App.get_running_app().root.dir_path = self.__get_directory_from_selection()
 
-        App.get_running_app().root.ids.rv.update_data(
+        App.get_running_app().root.ids.rv.replace_data(
             pathfile.filter_for_audio(
                 self.__dir_files(App.get_running_app().root.dir_path)))
 
@@ -102,7 +102,7 @@ class Root(BoxLayout):
 
 class Editor(App):
     def build(self):
-        self.root.ids.filechooser.bind(on_selection=self.root.ids.rv.update_data)
+        self.root.ids.filechooser.bind(on_selection=self.root.ids.rv.replace_data)
 
 if __name__ == '__main__':
     Editor().run()
