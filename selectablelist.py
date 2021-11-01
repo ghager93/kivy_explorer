@@ -69,8 +69,7 @@ class SelectableLabel(RecycleDataViewBehavior, Label):
 class SelectableList(RecycleView):
     def __init__(self, **kwargs):
         super(SelectableList, self).__init__(**kwargs)
-        self.data = [{'text': str(x)} for x in range(3)]
-        self.data_set = {str(x) for x in range(3)}
+        self.data = []
 
     def replace_data(self, data):
         self.clear_data()
@@ -84,7 +83,6 @@ class SelectableList(RecycleView):
 
     def remove_data_at_index(self, index):
         if index < len(self.data):
-            self.data_set.remove(self.data[index]['text'])
             self.data.pop(index)
 
     def remove_data_at_indices(self, indices):
@@ -93,13 +91,10 @@ class SelectableList(RecycleView):
 
     def clear_data(self):
         self.data = list()
-        self.data_set = set()
         self.clear_selection()
 
     def _add_element(self, element):
-        if str(element) not in self.data_set:
-            self.data.append({'text': str(element)})
-            self.data_set.add(str(element))
+        self.data.append({'text': str(element)})
 
     def print_selected(self):
         print(self.selected_indices)

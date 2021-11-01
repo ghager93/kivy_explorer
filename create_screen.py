@@ -7,22 +7,16 @@ from kivy.app import App
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
-from kivy.uix.button import Button
+from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
 
 from selectablelist import SelectableList
-
 from util import pathfile
+
 
 class FileExplorer(FileChooserListView):
     filters = ['*' + ext for ext in pathfile.AUDIO_EXTS]
     path = 'C://Users/ghage/Downloads/'
-
-    def on_selection(self, *args):
-        print(self.selection[0])
-        if os.path.isdir(self.selection[0]):
-            print([f for f in os.listdir(self.selection[0])
-                   if os.path.splitext(f)[1] in pathfile.AUDIO_EXTS])
 
 
 class LibraryList(SelectableList):
@@ -74,6 +68,8 @@ class Library:
 
 
 class CreateScreen(BoxLayout):
+    save_dir = 'C://Users/ghage/PycharmProjects/kivy_explorer/lib/user/'
+
     def __init__(self, **kwargs):
         super(CreateScreen, self).__init__(**kwargs)
         self.library = Library()
@@ -110,14 +106,21 @@ class CreateScreen(BoxLayout):
             self.ids.librarylist.replace_data(
                 self.library.data['path_short'].to_list())
 
+    def save_library(self):
+        save_path = os.path.join(self.save_dir, self.ids.name_input.text)
+        if os.path.exists(save_path):
+            ofd = OverwriteFloatDialog(center=self.center)
+            self.add_widget(ofd)
+
+
+class OverwriteFloatDialog(FloatLayout):
+    pass
+
 
 class MainApp(App):
     def build(self):
         kv = Builder.load_file('create_screen.kv')
         return kv
-
-    def on_start(self):
-        self.root.ids.librarylist.replace_data([n for n in range(40)])
 
 
 if __name__ == '__main__':

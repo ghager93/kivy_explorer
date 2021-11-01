@@ -76,7 +76,7 @@ CreateScreen:
 
             size_hint: 0.25, 0.1
             text: 'Save as...'
-            on_press: root.ids.librarylist.print_selected()
+            on_press: root.save_library()
 
 
 <LabelledCheckBox@StackLayout>:
@@ -94,5 +94,19 @@ CreateScreen:
         size_hint: 0.25, None
         on_active: root.active = self.active
 
+
+<OverwriteFloatDialog@FloatLayout>
+    StackLayout:
+        Label:
+            size_hint: 1, 0.1
+            text: 'File already exists. Overwrite?'
+
+        Button:
+            size_hint: 0.5, 0.1
+            text: 'Save'
+
+        Button:
+            size_hint: 0.5, 0.1
+            text: 'Cancel'
 
 
