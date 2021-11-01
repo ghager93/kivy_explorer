@@ -102,8 +102,7 @@ class SelectableList(RecycleView):
             self.data_set.add(str(element))
 
     def print_selected(self):
-        print([self.data[c.index] for c in self.children[0].children
-               if c.selected_indices])
+        print(self.selected_indices)
 
     def remove_selected(self):
         self.remove_data_at_indices(self.selected_indices)
