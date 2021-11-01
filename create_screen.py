@@ -73,7 +73,6 @@ class Library:
         print(self.data.head())
 
 
-
 class CreateScreen(BoxLayout):
     def __init__(self, **kwargs):
         super(CreateScreen, self).__init__(**kwargs)
@@ -86,23 +85,30 @@ class CreateScreen(BoxLayout):
         """
         selection = self.ids.explorer.selection
         if selection:
-            self.ids.librarylist.add_selection(selection[0])
-
-    def add_to_libobj(self):
-        selection = self.ids.explorer.selection
-        if selection:
-            self.library.append(selection[0])
+            if os.path.isdir(selection[0]):
+                self._add_dir_to_library(selection[0])
+            else:
+                self.library.append(selection[0])
             self._update_list()
+
+    def _add_dir_to_library(self, dir):
+        self.library.append(pathfile.audio_paths_in_dir(dir))
 
     def remove_selected(self):
         self.library.remove(self.ids.librarylist.selected_indices)
         self._update_list()
 
     def clear_library(self):
-        self.ids.librarylist.clear_data()
+        self.library.clear()
+        self._update_list()
 
     def _update_list(self):
-        self.ids.librarylist.replace_data(self.library.data['path'].to_list())
+        if(self.ids.fullpath_check.active):
+            self.ids.librarylist.replace_data(
+                self.library.data['path'].to_list())
+        else:
+            self.ids.librarylist.replace_data(
+                self.library.data['path_short'].to_list())
 
 
 class MainApp(App):

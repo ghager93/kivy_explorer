@@ -38,7 +38,7 @@ CreateScreen:
                         id: add_button
 
                         text: 'Add'
-                        on_press: root.add_to_libobj()
+                        on_press: root.add_to_library()
 
                     LabelledCheckBox:
                         id: addrec_check
@@ -59,7 +59,7 @@ CreateScreen:
                         id: fullpath_check
 
                         text: 'Show full path'
-                        on_checkbox_active:
+                        on_active: root._update_list()
 
                     Button:
                         id: remove_button
@@ -83,6 +83,7 @@ CreateScreen:
     spacing: dp(10)
 
     text: ''
+    active: False
 
     Label:
         size_hint: 0.75, None
@@ -91,6 +92,7 @@ CreateScreen:
 
     CheckBox:
         size_hint: 0.25, None
+        on_active: root.active = self.active
 
 
 
