@@ -1,4 +1,7 @@
 import os
+import pandas as pd
+import re
+import time
 
 from kivy.app import App
 
@@ -36,7 +39,46 @@ class LibraryList(SelectableList):
         self.append_data(pathfile.audio_paths_in_dir(dir))
 
 
+class Library:
+    data_columns = ['path', 'path_short', 'time_added']
+    shortening_pattern = re.compile(r'[^\/\\]+$')
+
+    def __init__(self):
+        self.data = pd.DataFrame(columns=self.data_columns)
+
+    def _add_element(self, element):
+        element = str(element)
+        if element not in self.data['path'].values:
+            shortened_path = self.shortening_pattern.search(element)[0]
+            time_added = time.time()
+
+            self.data = self.data.append({'path': element,
+                                          'path_short': shortened_path,
+                                          'time_added': time_added},
+                                         ignore_index=True)
+
+    def append(self, data):
+        if type(data) is list:
+            [self._add_element(d) for d in data]
+        else:
+            self._add_element(data)
+
+    def remove(self, indices):
+        self.data = self.data.drop(indices)
+
+    def clear(self):
+        self.data = pd.DataFrame(columns=self.data_columns)
+
+    def print(self):
+        print(self.data.head())
+
+
+
 class CreateScreen(BoxLayout):
+    def __init__(self, **kwargs):
+        super(CreateScreen, self).__init__(**kwargs)
+        self.library = Library()
+
     def add_to_library(self):
         """
         If the selection is a directory, add all audio files from that directory.
@@ -46,8 +88,21 @@ class CreateScreen(BoxLayout):
         if selection:
             self.ids.librarylist.add_selection(selection[0])
 
+    def add_to_libobj(self):
+        selection = self.ids.explorer.selection
+        if selection:
+            self.library.append(selection[0])
+            self._update_list()
+
+    def remove_selected(self):
+        self.library.remove(self.ids.librarylist.selected_indices)
+        self._update_list()
+
     def clear_library(self):
         self.ids.librarylist.clear_data()
+
+    def _update_list(self):
+        self.ids.librarylist.replace_data(self.library.data['path'].to_list())
 
 
 class MainApp(App):

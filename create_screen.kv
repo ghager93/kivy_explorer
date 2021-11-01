@@ -38,7 +38,7 @@ CreateScreen:
                         id: add_button
 
                         text: 'Add'
-                        on_press: root.add_to_library()
+                        on_press: root.add_to_libobj()
 
                     LabelledCheckBox:
                         id: addrec_check
@@ -59,12 +59,13 @@ CreateScreen:
                         id: fullpath_check
 
                         text: 'Show full path'
+                        on_checkbox_active:
 
                     Button:
                         id: remove_button
 
                         text: 'Remove'
-                        on_press: librarylist.remove_selected()
+                        on_press: root.remove_selected()
 
                     Button:
                         text: 'Clear'
