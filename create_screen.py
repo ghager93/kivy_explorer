@@ -26,22 +26,25 @@ class LibraryList(SelectableList):
     def __init__(self, **kwargs):
         super(LibraryList, self).__init__(**kwargs)
 
-    def append_all_audio_from_dir(self, dir):
-        self.append_data(pathfile.audio_paths_in_dir(dir))
+    def add_selection(self, selection):
+        if os.path.isdir(selection):
+            self._append_all_audio_from_dir(selection)
+        else:
+            self.append_data(selection)
 
+    def _append_all_audio_from_dir(self, dir):
+        self.append_data(pathfile.audio_paths_in_dir(dir))
 
 
 class CreateScreen(BoxLayout):
     def add_to_library(self):
+        """
+        If the selection is a directory, add all audio files from that directory.
+        If the selection is a file, just add the file.
+        """
         selection = self.ids.explorer.selection
-        if not selection:
-            return
-
-        if os.path.isdir(selection[0]):
-            self.ids.librarylist.append_all_audio_from_dir(selection[0])
-        else:
-            self.ids.librarylist.append_data(selection[0])
-
+        if selection:
+            self.ids.librarylist.add_selection(selection[0])
 
     def clear_library(self):
         self.ids.librarylist.clear_data()
