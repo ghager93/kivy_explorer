@@ -7,11 +7,20 @@ from kivy.app import App
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.popup import Popup
+from kivy.uix.stacklayout import StackLayout
 from kivy.lang import Builder
 
 from selectablelist import SelectableList
 from util import pathfile
+
+
+class OverwritePopup(Popup):
+    pass
+
+
+class PopupStack(StackLayout):
+    pass
 
 
 class FileExplorer(FileChooserListView):
@@ -73,6 +82,7 @@ class CreateScreen(BoxLayout):
     def __init__(self, **kwargs):
         super(CreateScreen, self).__init__(**kwargs)
         self.library = Library()
+        self.overwrite_popup = self._setup_overwrite_popup()
 
     def add_to_library(self):
         """
@@ -99,7 +109,7 @@ class CreateScreen(BoxLayout):
         self._update_list()
 
     def _update_list(self):
-        if(self.ids.fullpath_check.active):
+        if (self.ids.fullpath_check.active):
             self.ids.librarylist.replace_data(
                 self.library.data['path'].to_list())
         else:
@@ -109,12 +119,13 @@ class CreateScreen(BoxLayout):
     def save_library(self):
         save_path = os.path.join(self.save_dir, self.ids.name_input.text)
         if os.path.exists(save_path):
-            ofd = OverwriteFloatDialog(center=self.center)
-            self.add_widget(ofd)
+            self.overwrite_popup.open()
+            print(self.overwrite_popup.title)
 
-
-class OverwriteFloatDialog(FloatLayout):
-    pass
+    def _setup_overwrite_popup(self):
+        return OverwritePopup(title='Overwrite?',
+                              content=PopupStack(),
+                              size_hint=(0.5, 0.5))
 
 
 class MainApp(App):

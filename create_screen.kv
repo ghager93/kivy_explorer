@@ -94,19 +94,31 @@ CreateScreen:
         size_hint: 0.25, None
         on_active: root.active = self.active
 
+#
+#<OverwritePopup>
+#    size_hint: 0.5, 0.5
+#
+#    title: 'Overwrite?'
+#    content: popup_stack
 
-<OverwriteFloatDialog@FloatLayout>
-    StackLayout:
-        Label:
-            size_hint: 1, 0.1
-            text: 'File already exists. Overwrite?'
+<PopupStack>
+    canvas.before:
+        Color:
+            rgba: 0, 0.2, 0.7, 0.5
+        Rectangle:
+            size: root.size
+            pos: root.pos
 
-        Button:
-            size_hint: 0.5, 0.1
-            text: 'Save'
+    Label:
+        size_hint: 1, 0.1
+        text: 'File already exists. Overwrite?'
 
-        Button:
-            size_hint: 0.5, 0.1
-            text: 'Cancel'
+    Button:
+        size_hint: 0.5, 0.1
+        text: 'Save'
+
+    Button:
+        size_hint: 0.5, 0.1
+        text: 'Cancel'
 
 
