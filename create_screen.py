@@ -99,8 +99,7 @@ class CreateScreen(BoxLayout):
 
 class MainApp(App):
     def build(self):
-        kv = Builder.load_file('create_screen.kv')
-        return kv
+        return Builder.load_file('create_screen.kv')
 
 
 if __name__ == '__main__':

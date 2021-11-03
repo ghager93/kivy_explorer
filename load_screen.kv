@@ -1,0 +1,22 @@
+#:kivy 2.0.0
+
+LoadScreen:
+    orientation: 'vertical'
+
+    LoadFileExplorer:
+        id: file_explorer
+        size_hint: 1, 0.8
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 0.2
+
+        Button:
+            text: 'Load'
+            on_release: root.load(file_explorer.path, file_explorer.selection)
+
+        Button:
+            text: 'Cancel'
+            on_release: root.cancel()
+
+
