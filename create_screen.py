@@ -16,7 +16,9 @@ from util import pathfile
 
 
 class OverwritePopup(Popup):
-    pass
+    def save_and_dismiss(self):
+        self.save_func()
+        self.dismiss()
 
 
 class PopupStack(StackLayout):
@@ -75,6 +77,9 @@ class Library:
     def print(self):
         print(self.data.head())
 
+    def save(self, path):
+        self.data.to_csv(path)
+
 
 class CreateScreen(BoxLayout):
     save_dir = 'C://Users/ghage/PycharmProjects/kivy_explorer/lib/user/'
@@ -82,7 +87,8 @@ class CreateScreen(BoxLayout):
     def __init__(self, **kwargs):
         super(CreateScreen, self).__init__(**kwargs)
         self.library = Library()
-        self.overwrite_popup = self._setup_overwrite_popup()
+        self.overwrite_popup = OverwritePopup()
+        self.overwrite_popup.save_func = self.save_data
 
     def add_to_library(self):
         """
@@ -117,15 +123,17 @@ class CreateScreen(BoxLayout):
                 self.library.data['path_short'].to_list())
 
     def save_library(self):
-        save_path = os.path.join(self.save_dir, self.ids.name_input.text)
-        if os.path.exists(save_path):
+        if os.path.exists(self.get_save_path()):
             self.overwrite_popup.open()
-            print(self.overwrite_popup.title)
+        else:
+            self.save_data()
 
-    def _setup_overwrite_popup(self):
-        return OverwritePopup(title='Overwrite?',
-                              content=PopupStack(),
-                              size_hint=(0.5, 0.5))
+    def save_data(self):
+        self.library.save(self.get_save_path())
+
+    def get_save_path(self):
+        return os.path.join(self.save_dir,
+                            self.ids.name_input.text + '.csv')
 
 
 class MainApp(App):

@@ -11,21 +11,16 @@ CreateScreen:
             pos_hint: {'left': 1}
             size_hint: 0.6, 0.05
 
-        TextInput:
-            id: name_input
-
-            text: 'Library Name...'
-            pos_hint: {'left': 1}
-            size_hint: 0.6, 0.05
-
         BoxLayout:
             orientation: 'horizontal'
             size_hint: 1, 0.6
 
             BoxLayout:
                 orientation: 'vertical'
+                size_hint: 0.5, 1
 
                 FileExplorer:
+                    size_hint: 1, 0.75
                     id: explorer
 
                     dirselect: True
@@ -47,8 +42,10 @@ CreateScreen:
 
             BoxLayout:
                 orientation: 'vertical'
+                size_hint: 0.5, 1
 
                 LibraryList:
+                    size_hint: 1, 0.75
                     id: librarylist
 
                 BoxLayout:
@@ -64,6 +61,7 @@ CreateScreen:
                     Button:
                         id: remove_button
 
+                        size_hint: None, 1
                         text: 'Remove'
                         on_press: root.remove_selected()
 
@@ -71,12 +69,22 @@ CreateScreen:
                         text: 'Clear'
                         on_press: root.clear_library()
 
-        Button:
-            id: save_button
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.1
+            TextInput:
+                id: name_input
 
-            size_hint: 0.25, 0.1
-            text: 'Save as...'
-            on_press: root.save_library()
+                text: 'libraryname'
+                pos_hint: {'left': 1}
+                size_hint: 0.5, None
+
+            Button:
+                id: save_button
+
+                size_hint: 0.25, None
+                text: 'Save'
+                on_press: root.save_library()
 
 
 <LabelledCheckBox@StackLayout>:
@@ -94,31 +102,32 @@ CreateScreen:
         size_hint: 0.25, None
         on_active: root.active = self.active
 
-#
-#<OverwritePopup>
-#    size_hint: 0.5, 0.5
-#
-#    title: 'Overwrite?'
-#    content: popup_stack
 
-<PopupStack>
-    canvas.before:
-        Color:
-            rgba: 0, 0.2, 0.7, 0.5
-        Rectangle:
-            size: root.size
-            pos: root.pos
+<OverwritePopup>
+    size_hint: 0.5, 0.5
+    title: 'Overwrite?'
+    save_func: None
 
-    Label:
-        size_hint: 1, 0.1
-        text: 'File already exists. Overwrite?'
+    StackLayout:
+        canvas.before:
+            Color:
+                rgba: 0, 0.2, 0.7, 0.5
+            Rectangle:
+                size: root.size
+                pos: root.pos
 
-    Button:
-        size_hint: 0.5, 0.1
-        text: 'Save'
+        Label:
+            size_hint: 1, 0.1
+            text: 'File already exists. Overwrite?'
 
-    Button:
-        size_hint: 0.5, 0.1
-        text: 'Cancel'
+        Button:
+            size_hint: 0.5, 0.1
+            text: 'Save'
+            on_press: root.save_and_dismiss()
+
+        Button:
+            size_hint: 0.5, 0.1
+            text: 'Cancel'
+            on_press: root.dismiss()
 
 
