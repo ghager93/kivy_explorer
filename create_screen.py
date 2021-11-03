@@ -6,11 +6,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.popup import Popup
 from kivy.uix.stacklayout import StackLayout
+from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
 from selectablelist import SelectableList
 from util import pathfile
 from library import Library
+
+
+Builder.load_file('create_screen.kv')
 
 
 class OverwritePopup(Popup):
@@ -42,7 +46,7 @@ class LibraryList(SelectableList):
         self.append_data(pathfile.audio_paths_in_dir(dir))
 
 
-class CreateScreen(BoxLayout):
+class CreateScreen(Screen):
     save_dir = 'C://Users/ghage/PycharmProjects/kivy_explorer/lib/user/'
 
     def __init__(self, **kwargs):
@@ -99,7 +103,7 @@ class CreateScreen(BoxLayout):
 
 class MainApp(App):
     def build(self):
-        return Builder.load_file('create_screen.kv')
+        return CreateScreen()
 
 
 if __name__ == '__main__':

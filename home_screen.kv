@@ -1,11 +1,13 @@
 #:kivy 2.0.0
 
-HomeScreen:
+<HomeScreen>:
     BoxLayout:
         orientation: 'vertical'
 
         Button:
             text: 'Create Library'
+            on_release: root.manager.current = 'create'
 
         Button:
             text: 'Load Library'
+            on_release: root.manager.current = 'load'
