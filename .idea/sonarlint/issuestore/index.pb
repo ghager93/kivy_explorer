@@ -14,3 +14,5 @@ rv_test.py,9\4\94baf0ac2468e8d77824191de2b5fb0fac3d17c0
 	editor.kv,0\d\0daab514400c3c195c48d237a760c9d86ed85ec9
 =
 lib/user/lib1,b\a\ba57c19ba3b0da6bbfdddfc21e27566f3ce862c9
+H
+lib/user/libraryname.csv,d\3\d33239ff538a7bd6cb90ac873936111c1c72393a

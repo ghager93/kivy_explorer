@@ -29,7 +29,7 @@ class LoadScreen(Screen):
         print(self.filepath)
 
     def cancel(self):
-        pass
+        self.manager.current = 'home'
 
 
 class LoadScreenApp(App):

@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import time
 
+
 class Library:
     data_columns = ['path', 'path_short', 'time_added']
     shortening_pattern = re.compile(r'[^\/\\]+$')
@@ -39,6 +40,11 @@ class Library:
         print(self.data.head())
 
     def save(self, path):
-        self.data.to_csv(path)
+        self.data.to_csv(path, index=False)
+
+
+def read_csv(path):
+    return Library(pd.read_csv(path))
+
 
 

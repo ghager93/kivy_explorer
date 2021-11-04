@@ -1,0 +1,23 @@
+#:kivy 2.0.0
+
+<DfGrid>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    height: self.minimum_height
+    row_default_height: 60
+    size_hint_y: None
+
+
+<DfElement>:
+    color: 0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: 1, 0, 0, 1
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
