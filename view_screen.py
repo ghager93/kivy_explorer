@@ -10,14 +10,19 @@ import library
 from dfgrid import DfScroll
 
 
-class ViewScreen(BoxLayout):
-    def __init__(self, csv_path, **kwargs):
+class ViewScreen(Screen):
+    def __init__(self, csv_path='', **kwargs):
         super(ViewScreen, self).__init__(**kwargs)
         self.csv_path = csv_path
         self.add_widget(DfScroll())
 
     def data(self):
         self.children[0].show(pd.read_csv(self.csv_path))
+
+    def on_enter(self, *args):
+        super(ViewScreen, self).on_enter(*args)
+        self.data()
+
 
 class ViewApp(App):
     def build(self):

@@ -5,6 +5,7 @@ from kivy.lang.builder import Builder
 from home_screen import HomeScreen
 from create_screen import CreateScreen
 from load_screen import LoadScreen
+from view_screen import ViewScreen
 
 
 class MyApp(App):
@@ -13,6 +14,7 @@ class MyApp(App):
         sm.add_widget(HomeScreen(name='home'))
         sm.add_widget(CreateScreen(name='create'))
         sm.add_widget(LoadScreen(name='load'))
+        sm.add_widget(ViewScreen(name='view'))
 
         return sm
 

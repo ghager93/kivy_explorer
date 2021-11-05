@@ -26,7 +26,8 @@ class LoadScreen(Screen):
 
     def load(self, path, file):
         self.filepath = os.path.join(path, file[0])
-        print(self.filepath)
+        self.manager.get_screen('view').csv_path = self.filepath
+        self.manager.current = 'view'
 
     def cancel(self):
         self.manager.current = 'home'
@@ -34,7 +35,7 @@ class LoadScreen(Screen):
 
 class LoadScreenApp(App):
     def build(self):
-        return LoadScreen
+        return LoadScreen()
 
 
 if __name__ == '__main__':

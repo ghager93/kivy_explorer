@@ -17,8 +17,6 @@ rv_test.py,9\4\94baf0ac2468e8d77824191de2b5fb0fac3d17c0
 H
 lib/user/libraryname.csv,d\3\d33239ff538a7bd6cb90ac873936111c1c72393a
 A
-screen_manager.py,0\3\0387ad4d56ce8b65959f0264d6ae832acdb4b220
-A
 selectablelist.py,f\7\f7a2ed83a05ef9a060794d21cd1502444e056bd6
 >
 load_screen.kv,5\e\5ea47839f96eacff4ef23c73944ef06c49178061
