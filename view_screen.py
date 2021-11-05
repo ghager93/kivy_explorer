@@ -1,5 +1,4 @@
 import pandas as pd
-import dfgui
 
 from kivy.app import App
 from kivy.uix.screenmanager import Screen
@@ -8,14 +7,17 @@ from kivy.lang.builder import Builder
 
 import library
 
+from dfgrid import DfScroll
+
 
 class ViewScreen(BoxLayout):
     def __init__(self, csv_path, **kwargs):
         super(ViewScreen, self).__init__(**kwargs)
         self.csv_path = csv_path
+        self.add_widget(DfScroll())
 
     def data(self):
-        dfgui.show(pd.read_csv(self.csv_path))
+        self.children[0].show(pd.read_csv(self.csv_path))
 
 class ViewApp(App):
     def build(self):

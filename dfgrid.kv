@@ -9,15 +9,24 @@
             pos: self.pos
 
     height: self.minimum_height
-    row_default_height: 60
+    row_default_height: 30
     size_hint_y: None
 
 
-<DfElement>:
+<DfElement@Label>:
+    halign: 'left'
+    text_size: self.width - dp(10), dp(20)
+    background_color: 0, 0, 0, 0
     color: 0, 0, 0, 1
     canvas.before:
         Color:
-            rgba: 1, 0, 0, 1
+            rgba: 0.2, 0.2, 0.2, 1
         Line:
             width: 1
             rectangle: self.x, self.y, self.width, self.height
+
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
